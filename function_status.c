@@ -6,8 +6,10 @@
 
 #include "function_status.h"
 
-char *time_fmt = "%04d%02d%02d-%02d:%02d:%02d-%06dus";
-char *file_str = FILE_STR;//"function_status.log";
+static char *time_fmt = "%04d%02d%02d-%02d:%02d:%02d-%06dus";
+static char *file_str = FILE_STR;//"function_status.log";
+
+static pthread_mutex_t lock;
 
 void get_time_str(char time_str[])
 {
@@ -24,8 +26,10 @@ void get_time_str(char time_str[])
 
 void function_status(const char *func)
 {
+    pthread_mutex_lock(&lock);
     FILE *fp = fopen(file_str, "a");
     if (NULL == fp) {
+        pthread_mutex_unlock(&lock);
         return;
     }
 
@@ -41,4 +45,5 @@ void function_status(const char *func)
     fprintf(fp, "\n");
 
     fclose(fp);
+    pthread_mutex_unlock(&lock);
 }

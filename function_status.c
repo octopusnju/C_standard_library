@@ -36,7 +36,7 @@ void function_status(const char *func)
 
     fprintf(fp, "%s, ", time_str);
     fprintf(fp, "PID:%05u, ", pid);
-    fprintf(fp, "TID:%010u, ", tid);
+    fprintf(fp, "TID:%010lu, ", tid);
     fprintf(fp, "FUNC:%s", func);
     fprintf(fp, "\n");
 

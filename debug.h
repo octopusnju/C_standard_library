@@ -14,26 +14,35 @@
 
 #include <stdio.h>
 
-#define __INFO__ 1
-#define __WARN__ 1
-#define __ERROR__ 1
+#define __INFO__    1
+#define __WARN__    1
+#define __ERROR__   1
 
 #if __INFO__
-#define INFO( format, ... ) printf("FILE:" __FILE__ ", FUNC:%s, LINE:%04d, INFO:" format "\n", __func__, __LINE__, __VA_ARGS__)
+#define INFO( ... ) do { \
+    printf( "FILE:" __FILE__ ", FUNC:%s, LINE:%04d, INFO:", __func__, __LINE__ ); \
+    printf( __VA_ARGS__ ); \
+} while (0)
 #else
-#define INFO( format, ... )
+#define INFO( ... )
 #endif
 
 #if __WARN__
-#define WARN( format, ... ) printf("FILE:" __FILE__ ", FUNC:%s, LINE:%04d, WARN:" format "\n", __func__, __LINE__, __VA_ARGS__)
+#define WARN( ... ) do { \
+    printf( "FILE:" __FILE__ ", FUNC:%s, LINE:%04d, WARN:", __func__, __LINE__ ); \
+    printf( __VA_ARGS__ ); \
+} while (0)
 #else
-#define WARN( format, ... )
+#define WARN( ... )
 #endif
 
 #if __ERROR__
-#define ERROR( format, ... ) printf("FILE:" __FILE__ ", FUNC:%s, LINE:%04d, ERROR:" format "\n", __func__, __LINE__, __VA_ARGS__)
+#define ERROR( ... ) do { \
+    printf( "FILE:" __FILE__ ", FUNC:%s, LINE:%04d, ERROR:", __func__, __LINE__ ); \
+    printf( __VA_ARGS__ ); \
+} while (0)
 #else
-#define ERROR( format, ... )
+#define ERROR( ... )
 #endif
 
 #endif /*__DEBUG_H__*/

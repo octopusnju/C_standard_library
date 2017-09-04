@@ -19,12 +19,12 @@
 #define __ERROR__   1
 
 #if __INFO__
-#define INFO( ... ) do { \
+#define INFO( fmt, ... ) do { \
     printf( "FILE:" __FILE__ ", FUNC:%s, LINE:%04d, INFO:", __func__, __LINE__ ); \
-    printf( __VA_ARGS__ ); \
+    printf( fmt, ##__VA_ARGS__ ); \
 } while (0)
 #else
-#define INFO( ... )
+#define INFO( fmt, ... )
 #endif
 
 #if __WARN__

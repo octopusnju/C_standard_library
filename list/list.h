@@ -34,6 +34,6 @@ int list_rem_next(List *list, ListElmt *element, void **data);
 #define list_is_head(list, element) ((element) == (list)->head ? 1 : 0)
 #define list_is_tail(element) ((element)->next == NULL ? 1 : 0)
 
-#define list_is_empty(list) (((list)->head == NULL) ? 1 : 0)
+#define list_is_empty(list) (list_size(list) == 0 ? 1 : 0)
 
 #endif /*__LIST_H__*/

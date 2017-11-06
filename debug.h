@@ -11,12 +11,14 @@
  * Author: yxzhang
  * Date: 2017-09-01
  * Date: 2017-09-12
+ * Date: 2017-11-06
  */
 
 #ifndef __DEBUG_H__
 #define __DEBUG_H__
 
 #include <stdio.h>
+#include <stdlib.h>
 
 #define __VERBOSE__ 1
 #define __DEBUG__   1
@@ -24,38 +26,39 @@
 #define __WARN__    1
 #define __ERROR__   1
 
-#define LOG( name, fmt, ...) do { \
-    printf( "[%s][" __FILE__ "] %s:%04d | " fmt "\n", name, __func__, __LINE__, ##__VA_ARGS__ ); \
-} while (0)
+#define LOG(name, fmt, ...) printf("[%s][" __FILE__ "] %s:%04d | " fmt "\n", name, __func__, __LINE__, ##__VA_ARGS__)
 
 #if __VERBOSE__ 
-#define VERBOSE( fmt, ... ) LOG( "VERB", fmt, ##__VA_ARGS__)
+    #define VERBOSE(fmt, ...) LOG("VERB", fmt, ##__VA_ARGS__)
 #else
-#define VERBOSE( ... )
+    #define VERBOSE(...)
 #endif
 
 #if __DEBUG__ 
-#define DEBUG( fmt, ... ) LOG( "DBUG", fmt, ##__VA_ARGS__)
+    #define DEBUG(fmt, ...) LOG("DBUG", fmt, ##__VA_ARGS__)
 #else
-#define DEBUG( ... )
+    #define DEBUG(...)
 #endif
 
 #if __INFO__ 
-#define INFO( fmt, ... ) LOG( "INFO", fmt, ##__VA_ARGS__)
+    #define INFO(fmt, ...) LOG("INFO", fmt, ##__VA_ARGS__)
 #else
-#define INFO( ... )
+    #define INFO(...)
 #endif
 
 #if __WARN__ 
-#define WARN( fmt, ... ) LOG( "WARN", fmt, ##__VA_ARGS__)
+    #define WARN(fmt, ...) LOG("WARN", fmt, ##__VA_ARGS__)
 #else
-#define WARN( ... )
+    #define WARN(...)
 #endif
 
 #if __ERROR__ 
-#define ERROR( fmt, ... ) LOG( "ERRO", fmt, ##__VA_ARGS__)
+    #define ERROR( fmt, ... ) do { \
+        LOG( "ERRO", fmt, ##__VA_ARGS__); \
+        exit(-1); \
+    } while (0)
 #else
-#define ERROR( ... )
+    #define ERROR( ... ) exit(-1)
 #endif
 
 #endif /*__DEBUG_H__*/
